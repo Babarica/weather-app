@@ -112,7 +112,7 @@ export default {
   data(){
     return {
       api_key: 'ef1997cc54103c25f43ed4a7059f612c',
-      url_base: 'https://api.openweathermap.org/data/2.5/',
+      url_base: 'http://api.openweathermap.org/data/2.5/',
       query: '',
       weather: {},
       day: {
@@ -149,7 +149,9 @@ export default {
   methods: {
     findCity(town) {
       this.query = town;
-      fetch(`${this.url_base}forecast?q=${this.query}&units=metric&APPID=${this.api_key}`,{method: 'GET',}).then(res=>{
+      fetch(`${this.url_base}forecast?q=${this.query}&units=metric&APPID=${this.api_key}`,{method: 'GET',headers: {
+        accept: 'application/json',
+      },}).then(res=>{
           return res.json();
         }).then(this.setResults);
       this.sidebar.active = false;
@@ -259,14 +261,18 @@ export default {
     },
     changeWeatherMouse(){
       this.active = false;
-        fetch(`${this.url_base}forecast?q=${this.query}&units=metric&APPID=${this.api_key}`,{method: 'GET',}).then(res=>{
+        fetch(`${this.url_base}forecast?q=${this.query}&units=metric&APPID=${this.api_key}`,{method: 'GET',headers: {
+        accept: 'application/json',
+      },}).then(res=>{
         return res.json();
       }).then(this.setResults);
     },
     changeWeather(e){
       if(e.key == "Enter"){
         this.active = false;
-        fetch(`${this.url_base}forecast?q=${this.query}&units=metric&APPID=${this.api_key}`,{method: 'GET',}).then(res=>{
+        fetch(`${this.url_base}forecast?q=${this.query}&units=metric&APPID=${this.api_key}`,{method: 'GET',headers: {
+        accept: 'application/json',
+      },}).then(res=>{
           return res.json();
         }).then(this.setResults);
       }
